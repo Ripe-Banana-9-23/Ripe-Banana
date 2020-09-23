@@ -2,6 +2,7 @@ const fs = require('fs');
 const pool = require('../lib/utils/pool');
 const request = require('supertest');
 const app = require('../lib/app');
+const Studio = require('../lib/models/studio');
 
 describe('studio routes', () => {
   it('creates a studio', async() => {
@@ -50,6 +51,20 @@ describe('studio routes', () => {
             name: expect.any(String)
           }
         ]));
+      });
+  });
+
+  it('gets a studio by id', async() => {
+    return await request(app)
+      .get('/api/v1/studios/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: expect.any(String),
+          city: expect.any(String),
+          state: expect.any(String),
+          country: expect.any(String)          
+        });
       });
   });
 });
