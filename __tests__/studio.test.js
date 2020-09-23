@@ -4,11 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 describe('studio routes', () => {
-  beforeEach(() => {
-    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'))
-  });
-
-  it('creates a studio', async () => {
+  it('creates a studio', async() => {
     return request(app)
       .post('/api/v1/studios')
       .send({
@@ -24,7 +20,36 @@ describe('studio routes', () => {
           city: 'Petersburg',
           state: 'Florida',
           country: 'Russia'
-        })
-      })
+        });
+      });
+  });
+
+  it('gets all studios', async() => {
+    return await request(app)
+      .get('/api/v1/studios')
+      .then(res => {
+        expect(res.body).toEqual(expect.arrayContaining([
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          }
+        ]));
+      });
   });
 });
