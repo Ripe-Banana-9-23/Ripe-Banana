@@ -1,14 +1,9 @@
-const fs = require('fs');
-const pool = require('../lib/utils/pool');
 const request = require('supertest');
 const app = require('../lib/app');
+require('../data/data-helpers');
 
 describe('studio routes', () => {
-  beforeEach(() => {
-    return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'))
-  });
-
-  it('creates a studio', async () => {
+  it('creates a studio', async() => {
     return request(app)
       .post('/api/v1/studios')
       .send({
@@ -24,7 +19,50 @@ describe('studio routes', () => {
           city: 'Petersburg',
           state: 'Florida',
           country: 'Russia'
-        })
-      })
+        });
+      });
+  });
+
+  it('gets all studios', async() => {
+    return await request(app)
+      .get('/api/v1/studios')
+      .then(res => {
+        expect(res.body).toEqual(expect.arrayContaining([
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String)
+          }
+        ]));
+      });
+  });
+
+  it('gets a studio by id', async() => {
+    return await request(app)
+      .get('/api/v1/studios/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: expect.any(String),
+          city: expect.any(String),
+          state: expect.any(String),
+          country: expect.any(String)          
+        });
+      });
   });
 });
