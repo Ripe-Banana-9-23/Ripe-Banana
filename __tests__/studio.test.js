@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../lib/app');
+require('../data/data-helpers');
 
 describe('studio routes', () => {
   it('creates a studio', async() => {

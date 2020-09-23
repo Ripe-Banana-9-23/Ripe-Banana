@@ -1,7 +1,7 @@
 const Studio = require('../lib/models/studio');
 const chance = require('chance').Chance();
 
-module.exports = async ({ studioCount = 5 } = {}) => {
+module.exports = async({ studioCount = 5 } = {}) => {
   const studiosToCreate = [...Array(studioCount)].map(() =>
     ({
       name: chance.animal(),
