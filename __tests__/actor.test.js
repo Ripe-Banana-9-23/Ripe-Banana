@@ -50,4 +50,17 @@ describe('actor routes', () =>{
         ]));
       });
   });
+
+  it('gets one actor by id', async() => {
+    return await request(app)
+      .get('/api/v1/actors/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: expect.any(String),
+          dob: expect.any(String),
+          pob: expect.any(String)
+        });
+      });
+  });
 });
