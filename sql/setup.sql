@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS studios, actors, reviewers;
+DROP TABLE IF EXISTS studios, actors, reviewers, reviews;
 
 CREATE TABLE studios (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -20,3 +20,11 @@ CREATE TABLE reviewers (
   name TEXT NOT NULL,
   company TEXT NOT NULL
 );
+
+CREATE TABLE reviews(
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  rating DOUBLE PRECISION CHECK (rating > 0 AND rating < 6) NOT NULL,
+  review VARCHAR (140) NOT NULL,
+  reviewer_id BIGINT REFERENCES reviewers(id)
+);
+
