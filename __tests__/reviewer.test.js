@@ -60,7 +60,8 @@ describe('reviewer routes', () => {
         expect(res.body).toEqual({
           id: '1',
           name: expect.any(String),
-          company: expect.any(String)
+          company: expect.any(String),
+          reviews: expect.any(Array)
         });
       });
   });
