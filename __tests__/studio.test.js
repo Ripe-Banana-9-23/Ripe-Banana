@@ -3,7 +3,7 @@ const app = require('../lib/app');
 require('../data/data-helpers');
 
 describe('studio routes', () => {
-  it('creates a studio', async() => {
+  it('creates a studio', () => {
     return request(app)
       .post('/api/v1/studios')
       .send({
@@ -23,8 +23,8 @@ describe('studio routes', () => {
       });
   });
 
-  it('gets all studios', async() => {
-    return await request(app)
+  it('gets all studios', () => {
+    return request(app)
       .get('/api/v1/studios')
       .then(res => {
         expect(res.body).toEqual(expect.arrayContaining([
@@ -52,8 +52,8 @@ describe('studio routes', () => {
       });
   });
 
-  it('gets a studio by id', async() => {
-    return await request(app)
+  it('gets a studio by id', () => {
+    return request(app)
       .get('/api/v1/studios/1')
       .then(res => {
         expect(res.body).toEqual({

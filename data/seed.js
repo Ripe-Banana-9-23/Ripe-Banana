@@ -1,5 +1,6 @@
 const Studio = require('../lib/models/studio');
 const Actor = require('../lib/models/actor');
+const Reviewer = require('../lib/models/reviewer');
 const chance = require('chance').Chance();
 
 const studioSeed = async({ count = 5 } = {}) => {
@@ -29,9 +30,21 @@ const actorSeed = async({ count = 5 } = {}) => {
   ));
 };
 
+const reviewerSeed = async({ count = 5 } = {}) => {
+  const reviewersToCreate = [...Array(count)].map(() =>
+    ({
+      name: `${chance.first()} ${chance.last()}`,
+      company: chance.company()
+    }));
+
+  await Promise.all(reviewersToCreate.map(reviewer =>
+    Reviewer.insert(reviewer)
+  ));
+};
+
 module.exports = {
   studioSeed,
-  actorSeed
-
+  actorSeed,
+  reviewerSeed
 };
 

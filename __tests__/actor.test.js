@@ -2,8 +2,8 @@ const request = require('supertest');
 const app = require('../lib/app');
 require('../data/data-helpers');
 
-describe('actor routes', () =>{
-  it('creates an actor', async() => {
+describe('actor routes', () => {
+  it('creates an actor', () => {
     return request(app)
       .post('/api/v1/actors')
       .send({
@@ -17,13 +17,12 @@ describe('actor routes', () =>{
           name: 'Bugs Bunny',
           dob: '1940-04-29',
           pob: 'Burbank, CA'
-
         });
       });
   });
 
-  it('gets all actors', async() => {
-    return await request(app)
+  it('gets all actors', () => {
+    return request(app)
       .get('/api/v1/actors')
       .then(res => {
         expect(res.body).toEqual(expect.arrayContaining([
@@ -51,8 +50,8 @@ describe('actor routes', () =>{
       });
   });
 
-  it('gets one actor by id', async() => {
-    return await request(app)
+  it('gets one actor by id', () => {
+    return request(app)
       .get('/api/v1/actors/1')
       .then(res => {
         expect(res.body).toEqual({
