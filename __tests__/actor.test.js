@@ -2,30 +2,28 @@ const request = require('supertest');
 const app = require('../lib/app');
 require('../data/data-helpers');
 
-describe('studio routes', () => {
-  it('creates a studio', () => {
+describe('actor routes', () => {
+  it('creates an actor', () => {
     return request(app)
-      .post('/api/v1/studios')
+      .post('/api/v1/actors')
       .send({
-        name: 'Rabbit',
-        city: 'Petersburg',
-        state: 'Florida',
-        country: 'Russia'
+        name: 'Bugs Bunny',
+        dob: '1940-04-29',
+        pob: 'Burbank, CA'
       })
       .then(res => {
         expect(res.body).toEqual({
           id: expect.any(String),
-          name: 'Rabbit',
-          city: 'Petersburg',
-          state: 'Florida',
-          country: 'Russia'
+          name: 'Bugs Bunny',
+          dob: '1940-04-29',
+          pob: 'Burbank, CA'
         });
       });
   });
 
-  it('gets all studios', () => {
+  it('gets all actors', () => {
     return request(app)
-      .get('/api/v1/studios')
+      .get('/api/v1/actors')
       .then(res => {
         expect(res.body).toEqual(expect.arrayContaining([
           {
@@ -52,16 +50,15 @@ describe('studio routes', () => {
       });
   });
 
-  it('gets a studio by id', () => {
+  it('gets one actor by id', () => {
     return request(app)
-      .get('/api/v1/studios/1')
+      .get('/api/v1/actors/1')
       .then(res => {
         expect(res.body).toEqual({
           id: '1',
           name: expect.any(String),
-          city: expect.any(String),
-          state: expect.any(String),
-          country: expect.any(String)          
+          dob: expect.any(String),
+          pob: expect.any(String)
         });
       });
   });
