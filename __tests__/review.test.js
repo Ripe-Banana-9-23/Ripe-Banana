@@ -35,4 +35,17 @@ describe('review routes', () => {
         ]));
       });
   });
+
+  it('deletes a review by id', () => {
+    return request(app)
+      .delete('/api/v1/reviews/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          rating: expect.any(Number),
+          review: expect.any(String),
+          reviewerId: expect.any(String)
+        });
+      });
+  });
 });
