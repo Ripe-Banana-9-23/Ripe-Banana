@@ -52,4 +52,16 @@ describe('reviewer routes', () => {
         ]));
       });
   });
+
+  it('finds a reviewer by id', () => {
+    return request(app)
+      .get('/api/v1/reviewers/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: expect.any(String),
+          company: expect.any(String)
+        });
+      });
+  });
 });
