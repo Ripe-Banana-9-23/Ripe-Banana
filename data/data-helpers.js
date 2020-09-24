@@ -1,6 +1,6 @@
 const fs = require('fs');
 const pool = require('../lib/utils/pool');
-const { studioSeed, actorSeed, reviewerSeed, reviewSeed } = require('./seed');
+const { studioSeed, actorSeed, reviewerSeed, reviewSeed, filmSeed } = require('./seed');
 
 beforeEach(() => {
   return pool.query(fs.readFileSync('./sql/setup.sql', 'utf-8'));
@@ -20,4 +20,8 @@ beforeEach(() => {
 
 beforeEach(() => {
   return reviewSeed();
+});
+
+beforeEach(() => {
+  return filmSeed();
 });
