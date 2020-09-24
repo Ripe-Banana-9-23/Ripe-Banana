@@ -18,4 +18,38 @@ describe('reviewer routes', () => {
         });
       });
   });
+
+  it('finds all reviewers', () => {
+    return request(app)
+      .get('/api/v1/reviewers')
+      .then(res => {
+        expect(res.body).toEqual(expect.arrayContaining([
+          {
+            id: expect.any(String),
+            name: expect.any(String),
+            company: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String),
+            company: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String),
+            company: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String),
+            company: expect.any(String)
+          },
+          {
+            id: expect.any(String),
+            name: expect.any(String),
+            company: expect.any(String)
+          }
+        ]));
+      });
+  });
 });
