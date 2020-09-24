@@ -20,4 +20,19 @@ describe('review routes', () => {
         });
       });
   });
+
+  it('gets all reviews', () => {
+    return request(app)
+      .get('/api/v1/reviews')
+      .then(res => {
+        expect(res.body).toEqual(expect.arrayContaining([
+          {
+            id: '1',
+            rating: expect.any(Number),
+            review: expect.any(String),
+            reviewerId: expect.any(String)
+          }
+        ]));
+      });
+  });
 });

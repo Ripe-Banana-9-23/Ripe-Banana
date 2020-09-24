@@ -43,12 +43,12 @@ const reviewerSeed = async({ count = 5 } = {}) => {
   ));
 };
 
-const reviewSeed = async({ count = 5 } = {}) => {
+const reviewSeed = async({ count = 105 } = {}) => {
   const reviewsToCreate = [...Array(count)].map(() =>
     ({
-      rating: 5,
+      rating: chance.integer({ min: 1, max: 5 }),
       review: chance.sentence(),
-      reviewerId: 1
+      reviewerId: chance.integer({ min: 1, max: 5 })
     }));
   await Promise.all(reviewsToCreate.map(review => 
     Review.insert(review)));
