@@ -64,4 +64,21 @@ describe('reviewer routes', () => {
         });
       });
   });
+
+  it('updates a reviewer by id', () => {
+    return request(app)
+      .put('/api/v1/reviewers/1')
+      .send({
+        id: '1',
+        name: 'Silent Bob',
+        company: 'Mall Rats Company'
+      })
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: 'Silent Bob',
+          company: 'Mall Rats Company'
+        });
+      });
+  });
 });
