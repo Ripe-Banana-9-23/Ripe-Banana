@@ -23,15 +23,8 @@ CREATE TABLE reviewers (
 
 CREATE TABLE reviews(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  rating VARCHAR (140) NOT NULL,
-  review TEXT NOT NULL
+  rating DOUBLE PRECISION CHECK (rating > 0 AND rating < 6) NOT NULL,
+  review VARCHAR (140) NOT NULL,
+  reviewer_id BIGINT REFERENCES reviewers(id)
 );
 
-SELECT
-	books.*,
-	array_to_json(array_agg(book_pages.*)) AS pages
-FROM
-	books
-JOIN book_pages
-	ON books.id = book_pages.book_id
-GROUP BY books.id;
