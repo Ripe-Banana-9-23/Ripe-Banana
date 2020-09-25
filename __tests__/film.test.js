@@ -22,4 +22,19 @@ describe('film routes', () => {
         });
       });
   });
+
+  it('gets all films', () => {
+    return request(app)
+      .get('/api/v1/films')
+      .then(res => {
+        expect(res.body).toEqual(expect.arrayContaining([
+          {
+            id: expect.any(String),
+            title: expect.any(String),
+            released: expect.any(Number),
+            studio: { id: expect.any(String), name: expect.any(String) }
+          }
+        ]));
+      });
+  });
 });
