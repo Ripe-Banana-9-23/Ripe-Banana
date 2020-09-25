@@ -37,4 +37,20 @@ describe('film routes', () => {
         ]));
       });
   });
+
+  it('gets films by id', () => {
+    return request(app)
+      .get('/api/v1/films/1')
+      .then(res => {
+        expect(res.body).toEqual(
+          {
+            id: expect.any(String),
+            title: expect.any(String),
+            released: expect.any(String),
+            studio: { id: expect.any(String), name: expect.any(String) },
+            players: expect.arrayContaining([{ id: expect.any(String), role: expect.any(String), actor: expect.any(String) }])
+          }
+        )
+      })
+  })
 });
