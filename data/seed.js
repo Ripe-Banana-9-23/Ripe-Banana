@@ -44,12 +44,13 @@ const reviewerSeed = async ({ count = 5 } = {}) => {
   ));
 };
 
-const reviewSeed = async ({ count = 105 } = {}) => {
+const reviewSeed = async ({ count = 5 } = {}) => {
   const reviewsToCreate = [...Array(count)].map(() =>
     ({
       rating: chance.integer({ min: 1, max: 5 }),
       review: chance.sentence(),
-      reviewerId: chance.integer({ min: 1, max: 5 })
+      reviewerId: chance.integer({ min: 1, max: 5 }),
+      filmId: chance.integer({ min: 1, max: 5 })
     }));
   await Promise.all(reviewsToCreate.map(review =>
     Review.insert(review)));
@@ -67,7 +68,7 @@ const filmSeed = async ({ count = 10 } = {}) => {
           { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) },
           { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) }
         ]
-      } 
+      }
     }));
   await Promise.all(filmsToCreate.map(film =>
     Film.insert(film)));
