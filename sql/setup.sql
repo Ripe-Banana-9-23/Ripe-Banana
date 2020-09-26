@@ -25,7 +25,8 @@ CREATE TABLE reviews(
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   rating DOUBLE PRECISION CHECK(rating > 0 AND rating < 6) NOT NULL,
   review VARCHAR(140) NOT NULL,
-  reviewer_id BIGINT REFERENCES reviewers(id)
+  reviewer_id BIGINT REFERENCES reviewers(id),
+  film_id BIGINT
 );
 
 CREATE TABLE films (

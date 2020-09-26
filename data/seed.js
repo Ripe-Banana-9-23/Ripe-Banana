@@ -3,6 +3,7 @@ const Actor = require('../lib/models/actor');
 const Reviewer = require('../lib/models/reviewer');
 const Review = require('../lib/models/review');
 const Film = require('../lib/models/film');
+const { json } = require('express');
 const chance = require('chance').Chance();
 
 const studioSeed = async ({ count = 5 } = {}) => {
@@ -44,12 +45,13 @@ const reviewerSeed = async ({ count = 5 } = {}) => {
   ));
 };
 
-const reviewSeed = async ({ count = 105 } = {}) => {
+const reviewSeed = async ({ count = 10 } = {}) => {
   const reviewsToCreate = [...Array(count)].map(() =>
     ({
       rating: chance.integer({ min: 1, max: 5 }),
       review: chance.sentence(),
-      reviewerId: chance.integer({ min: 1, max: 5 })
+      reviewerId: chance.integer({ min: 1, max: 5 }),
+      filmId: chance.integer({ min: 1, max: 5 })
     }));
   await Promise.all(reviewsToCreate.map(review =>
     Review.insert(review)));
@@ -61,13 +63,11 @@ const filmSeed = async ({ count = 10 } = {}) => {
       title: chance.animal(),
       studioId: chance.integer({ min: 1, max: 5 }),
       released: chance.year({ min: 999, max: 3000 }),
-      players: {
-        players: [
-          { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) },
-          { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) },
-          { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) }
-        ]
-      } 
+      players: JSON.stringify([
+        { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) },
+        { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) },
+        { role: chance.first(), actorId: chance.integer({ min: 1, max: 5 }) }
+      ])
     }));
   await Promise.all(filmsToCreate.map(film =>
     Film.insert(film)));

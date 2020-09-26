@@ -10,7 +10,7 @@ describe('film routes', () => {
         title: 'The Great Escape',
         studioId: 2,
         released: 1950,
-        players: { players: [{ role: 'Lightning McQueen', actor: 'Steve McQueen' }] }
+        players: JSON.stringify([{ role: 'Lightning McQueen', actor: 'Steve McQueen' }])
       })
       .then(res => {
         expect(res.body).toEqual({
@@ -18,7 +18,7 @@ describe('film routes', () => {
           title: 'The Great Escape',
           studioId: '2',
           released: 1950,
-          players: { players: [{ role: 'Lightning McQueen', actor: 'Steve McQueen' }] }
+          players: [{ role: 'Lightning McQueen', actor: 'Steve McQueen' }]
         });
       });
   });
@@ -35,6 +35,21 @@ describe('film routes', () => {
             studio: { id: expect.any(String), name: expect.any(String) }
           }
         ]));
+      });
+  });
+
+  it('gets a film by id', () => {
+    return request(app)
+      .get('/api/v1/films/1')
+      .then(res => {
+        expect(res.body).toEqual({
+          id: '1',
+          title: expect.any(String),
+          released: expect.any(Number),
+          studio: { id: expect.any(String), name: expect.any(String) },
+          cast: expect.any(Array),
+          reviews: expect.any(Array)
+        });
       });
   });
 });
