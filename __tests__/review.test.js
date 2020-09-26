@@ -9,14 +9,16 @@ describe('review routes', () => {
       .send({
         rating: 4.9238748932,
         review: 'This is a really cool movie',
-        reviewerId: 1
+        reviewerId: 1,
+        filmId: 1
       })
       .then(res => {
         expect(res.body).toEqual({
           id: expect.any(String),
           rating: 4.9238748932,
           review: 'This is a really cool movie',
-          reviewerId: '1'
+          reviewerId: '1',
+          filmId: '1'
         });
       });
   });
@@ -30,7 +32,8 @@ describe('review routes', () => {
             id: '1',
             rating: expect.any(Number),
             review: expect.any(String),
-            reviewerId: expect.any(String)
+            reviewerId: expect.any(String),
+            filmId: expect.any(String)
           }
         ]));
       });
@@ -44,7 +47,8 @@ describe('review routes', () => {
           id: '1',
           rating: expect.any(Number),
           review: expect.any(String),
-          reviewerId: expect.any(String)
+          reviewerId: expect.any(String),
+          filmId: expect.any(String)
         });
       });
   });
