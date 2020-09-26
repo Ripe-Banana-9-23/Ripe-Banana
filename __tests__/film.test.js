@@ -46,11 +46,11 @@ describe('film routes', () => {
           {
             id: expect.any(String),
             title: expect.any(String),
-            released: expect.any(String),
+            released: expect.any(Number),
             studio: { id: expect.any(String), name: expect.any(String) },
             players: expect.arrayContaining([{ id: expect.any(String), role: expect.any(String), actor: expect.any(String) }])
           }
-        )
-      })
-  })
+        );
+      });
+  });
 });
